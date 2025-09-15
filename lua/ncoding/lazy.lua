@@ -23,5 +23,6 @@ require("lazy").setup({
     require("ncoding.plugins.lsp"),
     require("ncoding.plugins.mason"),
     require("ncoding.plugins.oil"),
+    require("ncoding.plugins.git-integ"),
     "L3MON4D3/LuaSnip",
 })
