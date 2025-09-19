@@ -24,5 +24,8 @@ require("lazy").setup({
     require("ncoding.plugins.mason"),
     require("ncoding.plugins.oil"),
     require("ncoding.plugins.git-integ"),
+    require("ncoding.plugins.tests"),
+    require("ncoding.plugins.debugger"),
+    require("ncoding.plugins.which-key"),
     "L3MON4D3/LuaSnip",
 })

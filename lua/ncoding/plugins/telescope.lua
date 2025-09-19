@@ -7,6 +7,7 @@ return {
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Search text" })
             vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
             vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help" })
+            vim.keymap.set("v", "<S-F>", builtin.grep_string, {desc = "Test" })
         end
     }
 }

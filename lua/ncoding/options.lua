@@ -7,3 +7,10 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.keymap.set("n", "}", "5k")
 vim.keymap.set("n", "{", "5j")
+vim.keymap.set("n", "<Meta>2", "<C-W>d")
+
+vim.diagnostic.config({
+    jump = { 
+        float = true,
+    },
+})
