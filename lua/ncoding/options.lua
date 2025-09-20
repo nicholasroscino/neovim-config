@@ -1,16 +1,33 @@
-vim.opt.number = true      -- Show line numbers
-vim.opt.relativenumber = true -- Relative line numbers
+vim.opt.number = true
+vim.opt.relativenumber = true
+
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+
 vim.opt.clipboard = "unnamedplus"
 
-vim.keymap.set("n", "}", "5k")
-vim.keymap.set("n", "{", "5j")
-vim.keymap.set("n", "<Meta>2", "<C-W>d")
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99 -- :h foldlevelstart -- 99 -> no folds closed
+vim.opt.foldnestmax = 4
+
+local virt_lines_ns = vim.api.nvim_create_namespace 'on_diagnostic_jump'
+
+local function on_jump(diagnostic, bufnr)
+    if not diagnostic then return end
+
+    vim.diagnostic.show(
+        virt_lines_ns,
+        bufnr,
+        { diagnostic },
+        { virtual_lines = { current_line = true }, virtual_text = false }
+    )
+end
 
 vim.diagnostic.config({
-    jump = { 
-        float = true,
+    jump = {
+        on_jump = on_jump,
     },
 })

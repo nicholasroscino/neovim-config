@@ -13,10 +13,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local projectPath = os.getenv("NVIM_PROJECT_PATH")
+
 -- Load plugins
 require("lazy").setup({
     "nvim-lua/plenary.nvim", -- useful dependency
-    require("ncoding.plugins.theme"),
+    -- {'dinhhuy258/vim-local-history', {branch = 'master'}}, // TODO: fails on branch selection 
+    require("ncoding.plugins.theme.startup").setup(projectPath),
+    require("ncoding.plugins.theme.colorscheme"),
     require("ncoding.plugins.treesitter"),
     require("ncoding.plugins.telescope"),
     require("ncoding.plugins.cmp"),
@@ -24,8 +28,10 @@ require("lazy").setup({
     require("ncoding.plugins.mason"),
     require("ncoding.plugins.oil"),
     require("ncoding.plugins.git-integ"),
-    require("ncoding.plugins.tests"),
-    require("ncoding.plugins.debugger"),
+    -- require("ncoding.plugins.tests"),
+    -- require("ncoding.plugins.debugger"),
     require("ncoding.plugins.which-key"),
+    -- require("ncoding.plugins.breadcrumbs"),
+    require("ncoding.plugins.status_bar"),
     "L3MON4D3/LuaSnip",
 })

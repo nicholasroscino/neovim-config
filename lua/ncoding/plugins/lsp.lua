@@ -3,11 +3,16 @@ return {
     {
         "pmizio/typescript-tools.nvim",
         config = function()
-            local lspconfig = require('lspconfig');
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            -- local lspconfig = require("lspconfig") -- 
 
-            lspconfig.lua_ls.setup({
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local navic = require("nvim-navic")
+
+            vim.lsp.config("lua_ls", {
                 capabilities = capabilities,
+                on_attach = function(client, bufnr)
+                    navic.attach(client, bufnr)
+                end,
                 filetypes = {"lua"},
                 settings = {
                     Lua = {
@@ -28,18 +33,20 @@ return {
                     },
                 },
             })
+            vim.lsp.enable("lua_ls")
 
---             lspconfig.custom_elements_ls.setup({
---                 filetypes = {
---                     "typescript",
---                     "javascript",
---                     "html",
---                 }
---             })
+            --             lspconfig.custom_elements_ls.setup({
+            --                 filetypes = {
+            --                     "typescript",
+            --                     "javascript",
+            --                     "html",
+            --                 }
+            --             })
 
             require("typescript-tools").setup({
                 capabilities = capabilities,
-                on_attach = function(_, bufnr)
+                on_attach = function(client, bufnr)
+                    navic.attach(client, bufnr)
                     local opts = { buffer = bufnr, noremap = true, silent = true }
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
                     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
