@@ -20,6 +20,12 @@ vim.keymap.set("n", "<ESC>Ե", function ()
     vim.diagnostic.open_float()
 end, {desc = "Open diagnostic under cursor"})
 
+
+vim.api.nvim_create_user_command("QQ", function()
+    vim.cmd(":q")
+    vim.cmd(":q")
+end, {})
+
 -- vim.keymap.set("n", "<F13>", ":Git<CR>")
 
 vim.keymap.set("n", "<Up>", "<C-w>k")
