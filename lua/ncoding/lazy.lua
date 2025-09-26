@@ -43,4 +43,5 @@ require("lazy").setup({
     require("ncoding.plugins-configs.which-key"),
     require("ncoding.plugins-configs.breadcrumbs"),
     require("ncoding.plugins-configs.status_bar"),
+    require("ncoding.plugins-configs.private")
 })

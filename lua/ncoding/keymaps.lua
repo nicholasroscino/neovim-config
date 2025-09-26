@@ -16,8 +16,9 @@ vim.keymap.set("n", "gE",
 
 vim.keymap.set("n", "}", "5j")
 vim.keymap.set("n", "{", "5k")
-vim.keymap.set("n", "<Meta>2", "<C-w>d")
-
+vim.keymap.set("n", "<ESC>Ե", function ()
+    vim.diagnostic.open_float()
+end, {desc = "Open diagnostic under cursor"})
 
 -- vim.keymap.set("n", "<F13>", ":Git<CR>")
 

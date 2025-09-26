@@ -20,7 +20,7 @@ return {
                 flavour = "latte" -- latte, frappe, macchiato, mocha
             });
 
-            vim.cmd("colorscheme catppuccin")
+            vim.cmd("colorscheme slate")
         end
     }
 }
