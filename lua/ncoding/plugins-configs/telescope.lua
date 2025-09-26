@@ -12,6 +12,18 @@ return {
             }
         },
         config = function()
+            local tele = require("telescope")
+
+            tele.setup({
+                defaults = {
+                    file_ignore_patterns = {
+                        "node_modules%/.*",
+                        "package%-lock.json",
+                        "lazy%-lock.json"
+                    }
+                },
+            });
+
             local builtin = require("telescope.builtin")
 
             vim.keymap.set("n", "<ESC>Զ", builtin.live_grep, { desc = "Live grep on files" })
