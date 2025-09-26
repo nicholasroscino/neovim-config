@@ -17,32 +17,6 @@ function M.run_test(mode)
         return
     end
 
-
-    -- Determine buffer name
-    local buf_name = "Test Output: " .. vim.fn.fnamemodify(file, ":t")
-
-    -- Reuse existing buffer if available
-    local buf = vim.fn.bufnr(buf_name)
-    if buf == -1 then
-        buf = vim.api.nvim_create_buf(false, true) -- listed=false, scratch buffer
-        vim.api.nvim_buf_set_name(buf, buf_name)
-    else
-        vim.api.nvim_buf_set_lines(buf, 0, -1, false, {}) -- clear previous content
-    end
-
-
-    -- Open a split window
-    vim.cmd("belowright split")
-    vim.api.nvim_win_set_buf(0, buf)
-
-    -- Buffer options
-    vim.bo[buf].buftype = "nofile"
-    vim.bo[buf].bufhidden = "hide"
-    vim.bo[buf].swapfile = false
-    vim.bo[buf].modifiable = true
-    vim.bo[buf].filetype = "output"
-
-
     local cmd = {}
     if mode == "debug" then
          cmd = { "npm", "run", "test", "--", file, "--debug" }
@@ -50,28 +24,14 @@ function M.run_test(mode)
          cmd = { "npm", "run", "test", "--", file }
     end
 
+    local commandString = "belowright split | term";
 
-    -- Run asynchronously
-    vim.fn.jobstart(cmd, {
-        stdout_buffered = true,
-        stderr_buffered = true,
-        on_stdout = function(_, data)
-            if data then
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, data)
-                vim.api.nvim_win_set_cursor(0, {vim.api.nvim_buf_line_count(buf), 0})
-            end
-        end,
-        on_stderr = function(_, data)
-            if data then
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, data)
-                vim.api.nvim_win_set_cursor(0, {vim.api.nvim_buf_line_count(buf), 0})
-            end
-        end,
-        on_exit = function(_, code)
-            vim.api.nvim_buf_set_lines(buf, -1, -1, false, { "Test process exited with code " .. code })
-            vim.api.nvim_win_set_cursor(0, {vim.api.nvim_buf_line_count(buf), 0})
-        end,
-    })
+    for i = 1, #cmd do
+        commandString = commandString .. " %s"
+    end
+
+    commandString = string.format(commandString, unpack(cmd))
+    vim.cmd(commandString)
 end
 
 function M.setup()

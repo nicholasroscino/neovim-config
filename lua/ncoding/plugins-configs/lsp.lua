@@ -7,9 +7,7 @@ return {
 
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local navic = require("nvim-navic")
-
             vim.lsp.config("lua_ls", {
-                capabilities = capabilities,
                 on_attach = function(client, bufnr)
                     navic.attach(client, bufnr)
                 end,

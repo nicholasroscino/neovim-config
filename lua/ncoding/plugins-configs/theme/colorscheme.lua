@@ -1,7 +1,7 @@
 return {
- {
+    {
         "folke/tokyonight.nvim",
-        lazy = false,  -- load immediately on startup
+        lazy = false,    -- load immediately on startup
         priority = 1000, -- make sure it loads before other plugins
         -- config = function()
         --     -- Optional: choose a style: storm, night, day
@@ -15,9 +15,9 @@ return {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
-        config = function ()
+        config = function()
             require("catppuccin").setup({
-                flavour = "frappe"  -- latte, frappe, macchiato, mocha
+                flavour = "latte" -- latte, frappe, macchiato, mocha
             });
 
             vim.cmd("colorscheme catppuccin")

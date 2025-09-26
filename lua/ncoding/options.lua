@@ -1,13 +1,13 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
-
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
 vim.wo.cursorline = true
 
-vim.opt.clipboard = "unnamedplus"
+--if vim.env.DISPLAY then
+    vim.opt.clipboard = "unnamedplus"
+--end
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"

@@ -1,5 +1,7 @@
 return {
     "hrsh7th/nvim-cmp",            -- completion engine
+    "hrsh7th/cmp-buffer",      -- Source for current buffer words
+    "hrsh7th/cmp-path",        -- Source for file system paths
     {
         "hrsh7th/cmp-nvim-lsp",        -- LSP completion source
         config = function()
@@ -13,7 +15,6 @@ return {
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<C-Space>"] = cmp.mapping.complete(),
                     ["<Tab>"] = cmp.mapping.confirm({ select = true }),
                     ["<Enter>"] = cmp.mapping.confirm({ select = true }),
                 }),
@@ -21,9 +22,11 @@ return {
                     { name = "nvim_lsp" },
                     { name = "luasnip" },
                 }, {
-                    { name = "buffer" },
-                }),
+                        { name = "buffer" },
+                    }),
             })
+
+            vim.keymap.set("i", "<C-space>", cmp.mapping.complete(), {desc = "get completion"})
         end
     }
 }
