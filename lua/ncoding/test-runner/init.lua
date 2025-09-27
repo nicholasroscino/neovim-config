@@ -1,6 +1,5 @@
 local M = {}
 
--- Get current file path
 local function get_current_file()
     local file = vim.api.nvim_buf_get_name(0)
     if file == "" then
@@ -9,7 +8,6 @@ local function get_current_file()
     return file
 end
 
--- Run npm test for current file and show output in a split buffer
 function M.run_test(mode)
     local file = get_current_file()
     if not file then

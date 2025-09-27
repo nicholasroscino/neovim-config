@@ -3,10 +3,8 @@ local M = {}
 local Popup = require("nui.popup")
 local oil = require("oil")
 
--- Path to your JSON file
 local json_file = vim.fn.stdpath("data") .. "/projects.json"
 
--- Utility to load/save projects
 local function load_projects()
     local f = io.open(json_file, "r")
     if not f then return {} end
@@ -23,7 +21,6 @@ local function save_projects(projects)
     f:close()
 end
 
--- Public API
 function M.get_projects()
     return load_projects()
 end
@@ -42,7 +39,6 @@ function M.set_visible(name, visible)
     end
 end
 
--- 🆕 UI to list projects
 function M.show_ui()
     local projects = load_projects()
     local names = vim.tbl_keys(projects)
@@ -66,7 +62,6 @@ function M.show_ui()
 
     popup:mount()
 
-    -- Buffer setup
     vim.bo[popup.bufnr].buftype = "nofile"
     vim.bo[popup.bufnr].bufhidden = "wipe"
     vim.bo[popup.bufnr].swapfile = false
@@ -74,9 +69,7 @@ function M.show_ui()
     vim.bo[popup.bufnr].readonly = false
     vim.bo[popup.bufnr].filetype = "ProjectList"
 
-    -- Helper to render project list
     local function render()
-        -- Temporarily unlock buffer
         vim.bo[popup.bufnr].modifiable = true
         vim.bo[popup.bufnr].readonly = false
 
@@ -92,26 +85,21 @@ function M.show_ui()
 
         vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, lines)
 
-        -- Lock again
         vim.bo[popup.bufnr].modifiable = false
         vim.bo[popup.bufnr].readonly = true
     end
 
     render()
 
-    -- Highlight current line
     vim.wo[popup.winid].cursorline = true
 
-    -- Quit with q
     popup:map("n", "q", function()
         popup:unmount()
     end, { noremap = true })
 
-    -- Navigation
     popup:map("n", "j", "j", { noremap = true })
     popup:map("n", "k", "k", { noremap = true })
 
-    -- Toggle visibility with v
     popup:map("n", "v", function()
         local row = vim.api.nvim_win_get_cursor(0)[1]
         local project_name = names[row]
@@ -123,7 +111,6 @@ function M.show_ui()
         end
     end, { noremap = true })
 
-    -- Open project with Enter
     popup:map("n", "<CR>", function()
         local row = vim.api.nvim_win_get_cursor(0)[1]
         local project_name = names[row]
@@ -137,7 +124,6 @@ function M.show_ui()
     end, { noremap = true })
 end
 
--- Setup: define user commands
 function M.setup()
     vim.api.nvim_create_user_command("ProjectAdd", function(opts)
         local cwd = vim.fn.getcwd()

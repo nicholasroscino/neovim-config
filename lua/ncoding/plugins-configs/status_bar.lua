@@ -24,18 +24,18 @@ return {
                     }
                 },
                 -- OR in winbar
-                winbar = {
-                    lualine_c = {
-                        {
-                            function()
-                                return navic.get_location()
-                            end,
-                            cond = function()
-                                return navic.is_available()
-                            end
-                        },
-                    }
-                }
+                -- winbar = {
+                --     lualine_c = {
+                --         {
+                --             function()
+                --                 return navic.get_location()
+                --             end,
+                --             cond = function()
+                --                 return navic.is_available()
+                --             end
+                --         },
+                --     }
+                -- }
             })
         end
     }

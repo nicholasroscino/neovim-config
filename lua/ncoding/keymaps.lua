@@ -20,12 +20,12 @@ vim.keymap.set("n", "<ESC>Ե", function ()
     vim.diagnostic.open_float()
 end, {desc = "Open diagnostic under cursor"})
 
-
 vim.api.nvim_create_user_command("QQ", function()
-    vim.cmd(":q")
-    vim.cmd(":q")
+    vim.cmd(":q|q")
 end, {})
 
+vim.keymap.set("t", "<C-\\>", "<C-\\><C-n>")
+vim.keymap.set("n", "<C-\\>", ":belowright split | resize 15 | term<CR>")
 -- vim.keymap.set("n", "<F13>", ":Git<CR>")
 
 vim.keymap.set("n", "<Up>", "<C-w>k")
