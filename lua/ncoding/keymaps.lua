@@ -1,27 +1,33 @@
 vim.g.mapleader = " " -- Space as leader key
 vim.keymap.set("n", "<leader>fl", ":DapToggleBreakpoint<CR>")
 vim.keymap.set("n", "ge",
-    function()
-        vim.diagnostic.jump({ count = 1 })
-    end,
-    {desc = "Next Error" }
+  function()
+    vim.diagnostic.jump({ count = 1 })
+  end,
+  { desc = "Next Error" }
 )
 
 vim.keymap.set("n", "gE",
-    function()
-        vim.diagnostic.jump({ count = -1 })
-    end,
-    {desc = "Prev Error" }
+  function()
+    vim.diagnostic.jump({ count = -1 })
+  end,
+  { desc = "Prev Error" }
 )
 
-vim.keymap.set("n", "}", "5j")
-vim.keymap.set("n", "{", "5k")
-vim.keymap.set("n", "<ESC>Ե", function ()
-    vim.diagnostic.open_float()
-end, {desc = "Open diagnostic under cursor"})
+vim.keymap.set("n", "}", "5k")
+vim.keymap.set("n", "{", "5j")
+
+-- comment lines easier
+vim.keymap.set("v", "<ESC>Գ", "gc",{silent = true, remap = true})
+vim.keymap.set("n", "<ESC>Գ", "gcc",{silent = true, remap = true})
+
+
+vim.keymap.set("n", "<ESC>Ե", function()
+  vim.diagnostic.open_float()
+end, { desc = "Open diagnostic under cursor" })
 
 vim.api.nvim_create_user_command("QQ", function()
-    vim.cmd(":q|q")
+  vim.cmd(":q|q")
 end, {})
 
 vim.keymap.set("t", "<C-\\>", "<C-\\><C-n>")
