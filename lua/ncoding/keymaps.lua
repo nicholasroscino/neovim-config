@@ -1,4 +1,8 @@
 vim.g.mapleader = " " -- Space as leader key
+vim.g.maplocalleader = ' '
+
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
 vim.keymap.set("n", "<leader>fl", ":DapToggleBreakpoint<CR>")
 vim.keymap.set("n", "ge",
   function()
@@ -44,3 +48,4 @@ vim.keymap.set("n", "<C-n>", "zR")
 vim.keymap.set("n", "<C-l>", "zA")
 vim.keymap.set("n", "<C-k>", "zk")
 vim.keymap.set("n", "<C-j>", "zj")
+vim.keymap.set("n", "<leader>fw", 'yiw/<C-r>"<CR>')
